@@ -11,7 +11,14 @@ class Lease
       device.ip = lease[:ip]
       device.expires_at = lease[:expires]
       if device.new_record?
-        # notify somebody of a new device
+        if device.hostname =~ /phone|android/i
+          # assume if 'phone' or 'android' are in the hostname,
+          # this is going to be used as an occupancy sensor.
+          device.occupancy = true
+          device.friendly_name = device.hostname.gsub(/i?phone|android|[\-_]/i, '').sub(/s$/, '')
+        end
+
+        # TODO notify somebody of a new device
       end
       if device.occupancy?
         device.reachable?
