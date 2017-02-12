@@ -1,14 +1,18 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.1'
+gem 'turbolinks', '~> 5'
 gem 'pg'
 gem 'puma', '~> 3.0'
-gem 'turbolinks'
+gem 'inst-jobs'
 gem 'exceptionally', path: '../exceptionally'
 
 # Tracking master branch of activeadmin for Rails 5 support
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin'
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
+
+# Used by our DHCP log scraper
+gem 'nokogiri'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
