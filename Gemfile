@@ -5,7 +5,8 @@ gem 'turbolinks', '~> 5'
 gem 'pg'
 gem 'puma', '~> 3.0'
 gem 'inst-jobs'
-gem 'exceptionally', path: '../exceptionally'
+gem 'exceptionally'
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Tracking master branch of activeadmin for Rails 5 support
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin'

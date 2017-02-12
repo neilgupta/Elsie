@@ -1,5 +1,5 @@
 # Update this file as necessary to create a class that parses your DHCP leases
-# and responds to `fetch_all`, which returns an array of hashes in the format
+# and responds to `fetch`, which returns an array of hashes in the format
 # {
 #   hostname: 'my-iphone',
 #   ip: '192.168.1.1',
@@ -12,10 +12,10 @@ require 'nokogiri'
 module Asus
   class Lease
     LEASE_URL = 'http://cellspot.router/Main_DHCPStatus_Content.asp'
-    USERNAME = ENV[:router_username]
-    PASSWORD = ENV[:router_password]
+    USERNAME = ENV['router_username']
+    PASSWORD = ENV['router_password']
 
-    def self.fetch_all
+    def self.fetch
       html = `curl -s #{LEASE_URL} --user #{USERNAME}:#{PASSWORD}`
       now = Time.now
       text = Nokogiri::HTML(html).xpath('//table//textarea[1]').text
