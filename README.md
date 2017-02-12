@@ -1,24 +1,36 @@
-# README
+# Elsie
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+https://github.com/neilgupta/Elsie
 
-Things you may want to cover:
+> A rising star in the Programming Division tasked with monitoring my network's hosts.
 
-* Ruby version
+Elsie is a helper service for tracking all the devices on my network and pinging the mobile phones to notify my home automation system when somebody is home. It's essentially a more advanced version of [homebridge-people](https://github.com/PeteLawrence/homebridge-people).
 
-* System dependencies
+The goal was to be able to use mobile phones on the network as an occupancy sensor, without having to hard-code a list of phones. I want my home automations to keep working if friends or family are over without me, so I need my system to be able to learn about new phones on its own.
 
-* Configuration
+Specifically, Elsie performs the following tasks:
 
-* Database creation
+* Scrape my router's DHCP lease logs to determine all devices on the network and their IP addresses
+* Maintain a database of known devices so it can detect when a brand new device joins the network
+* Constantly poll for connectivity status on devices marked for use as occupancy sensors
 
-* Database initialization
+TODO:
 
-* How to run the test suite
+* Alert Bernard (WIP, my home automation AI) when an occupancy device's connection status changes (ie somebody entered or left the home)
+* Alert me when a new device joins the network so I can identify it and mark it as an occupancy sensor if appropriate
+* Maybe add specs one day...
 
-* Services (job queues, cache servers, search engines, etc.)
+## Setup
 
-* Deployment instructions
+Make sure you have ruby 2.3+ and Postgres installed.
 
-* ...
+1. `git clone git@github.com:neilgupta/Elsie.git`
+2. `cd Elsie`
+3. Unless you have an ASUS router, you'll need to edit `config/initializers/lease_provider.rb` to scrape wherever your DHCP leases are stored.
+4. `bundle install`
+5. `bundle exec rails db:create`
+6. `bundle exec rails db:migrate`
+7. `bin/start`
+8. Go to http://localhost:5000/devices
+
+If everything went well, you should either get a JSON response with a list of phones on your network right now or an empty array. If the latter, go to http://localhost:5000/admin and select which device(s) to use for occupancy and try again.
