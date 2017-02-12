@@ -36,7 +36,7 @@ class Device < ApplicationRecord
   private
 
   def new_occupancy_device?
-    occupancy? && occupancy_changed?
+    occupancy? && occupancy_changed? && last_seen_at.to_i < PING_THRESHOLD.minutes.ago.to_i
   end
 
   def schedule_lease_renewal
