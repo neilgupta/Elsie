@@ -20,7 +20,7 @@ class Lease
 
         # TODO notify somebody of a new device
       end
-      if device.occupancy?
+      if device.occupancy? && !device.new_record?
         device.reachable?
       else
         device.save!

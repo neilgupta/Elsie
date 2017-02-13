@@ -12,11 +12,12 @@ require 'nokogiri'
 module Asus
   class Lease
     LEASE_URL = 'http://cellspot.router/Main_DHCPStatus_Content.asp'
-    USERNAME = ENV['router_username']
-    PASSWORD = ENV['router_password']
 
     def self.fetch
-      html = `curl -s #{LEASE_URL} --user #{USERNAME}:#{PASSWORD}`
+      username = ENV['router_username']
+      password = ENV['router_password']
+
+      html = `curl -s #{LEASE_URL} --user #{username}:#{password}`
       now = Time.now
       text = Nokogiri::HTML(html).xpath('//table//textarea[1]').text
 
