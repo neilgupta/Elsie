@@ -16,6 +16,8 @@ class Lease
           # this is going to be used as an occupancy sensor.
           device.occupancy = true
           device.friendly_name = device.hostname.gsub(/i?phone|android|[\-_]/i, '').sub(/s$/, '')
+        else
+          device.friendly_name = device.hostname.gsub(/[\-_]/, ' ').gsub(/\d/, '').strip
         end
 
         # TODO notify somebody of a new device
