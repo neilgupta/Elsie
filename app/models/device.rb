@@ -1,7 +1,7 @@
 class Device < ApplicationRecord
   PING_THRESHOLD = 15
 
-  scope :active_lease, -> { where.not(expires_at: nil) }
+  scope :active_lease, -> { where("expires_at > ?", Time.now) }
   scope :mobile, -> { where(occupancy: true) }
   scope :online, -> { where(connected: true) }
 
