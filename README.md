@@ -22,14 +22,14 @@ TODO:
 
 ## Setup
 
-Make sure you have ruby 2.3+ and Postgres installed.
+Make sure you have ruby 2.3+, Postgres, bundler, and foreman installed.
 
 1. `git clone git@github.com:neilgupta/Elsie.git`
 2. `cd Elsie`
 3. Unless you have an ASUS router, you'll need to edit `config/initializers/lease_provider.rb` to scrape wherever your DHCP leases are stored.
 4. `bundle install`
-5. `bundle exec rails db:create`
-6. `bundle exec rails db:migrate`
+5. `foreman run bundle exec rails db:create`
+6. `foreman run bundle exec rails db:migrate`
 7. `bin/start`
 8. Go to http://localhost:5000/devices
 
